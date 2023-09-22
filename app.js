@@ -14,10 +14,26 @@ function getEmpDetails(){
     .then(response=>response.json())
     .then((data)=>{
         // console.log(data['Customer Details'])
-        empName.value=data['Customer Details'].name;
-        empEmail.value=data['Customer Details'].contacts[0].email;
-        empDesig.value=data['Customer Details'].attr2; //designation
-        empDept.value=data['Customer Details'].attr3; //department
-        empLoc.value=data['Customer Details'].address;
+        if(empID.value==""){
+            empName.value="";
+            empEmail.value="";
+            empDesig.value="";
+            empDept.value="";
+            empLoc.value="";
+        } else {
+            if(data.status=="success"){
+                empName.value=data['Customer Details'].name;
+                empEmail.value=data['Customer Details'].contacts[0].email;
+                empDesig.value=data['Customer Details'].attr2; //designation
+                empDept.value=data['Customer Details'].attr3; //department
+                empLoc.value=data['Customer Details'].address;
+            } else {
+                empName.value="";
+                empEmail.value="";
+                empDesig.value="";
+                empDept.value="";
+                empLoc.value="";
+                alert('Employee Details Not Found!');
+            }}
     })
 }
